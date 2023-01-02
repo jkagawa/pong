@@ -5,8 +5,9 @@ const canvas = document.createElement('canvas');
 const context = canvas.getContext('2d');
 const width = 500;
 const height = 700;
-const screenWidth = window.screen.width;
-const canvasPosition = screenWidth / 2 - width / 2;
+// const screenWidth = window.screen.width;
+let screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+let canvasPosition = screenWidth / 2 - width / 2;
 const isMobile = window.matchMedia('(max-width: 600px)');
 const gameOverEl = document.createElement('div');
 
@@ -211,6 +212,8 @@ function gameOver() {
 
 // Called Every Frame
 function animate() {
+  screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  canvasPosition = screenWidth / 2 - width / 2;
   renderCanvas();
   ballMove();
   ballBoundaries();
@@ -235,7 +238,11 @@ function startGame() {
   createCanvas();
   animate();
   canvas.addEventListener('mousemove', (e) => {
-    console.log(e.clientX);
+    console.log("screenWidth: " + screenWidth);
+    console.log("width: " + width);
+    console.log("e.clientX: " + e.clientX);
+    console.log("canvasPosition: " +canvasPosition);
+    console.log("paddleDiff: " +paddleDiff);
     playerMoved = true;
     // Compensate for canvas being centered
     paddleBottomX = e.clientX - canvasPosition - paddleDiff;
@@ -247,6 +254,7 @@ function startGame() {
     }
     // Hide Cursor
     // canvas.style.cursor = 'none';
+    console.log("paddleBottomX after: " +paddleBottomX);
   });
 }
 
