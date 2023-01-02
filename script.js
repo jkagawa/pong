@@ -1,5 +1,6 @@
 // Canvas
 const { body } = document;
+const main = document.getElementsByTagName('main')[0];
 const canvas = document.createElement('canvas');
 const context = canvas.getContext('2d');
 const width = 500;
@@ -94,7 +95,7 @@ function createCanvas() {
   canvas.width = width;
   canvas.height = height;
   // body.append(pageTitle, pageText, canvas);
-  body.appendChild(canvas);
+  main.appendChild(canvas);
   renderCanvas();
 }
 
@@ -234,6 +235,7 @@ function startGame() {
   createCanvas();
   animate();
   canvas.addEventListener('mousemove', (e) => {
+    console.log(e.clientX);
     playerMoved = true;
     // Compensate for canvas being centered
     paddleBottomX = e.clientX - canvasPosition - paddleDiff;
